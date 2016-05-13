@@ -6,11 +6,11 @@ ChinaNetCenter content manage system，即网宿科技内容管理系统，主�
 
 | 返回结果 | 说明 |
 | :---------------- | :---------- |
-| success append purge tasks... | 推送成功 ① |
-| url or dir is lack | url 或 dir 缺失 ② |
-| *** md5 validate failure... | MD5 校验错误失败 ③ |
-| url invalid ... | 更新的 url 错误 ④ |
-| can't purge channel[... ] | 推送的 url 错误 ⑤ |
+| `success append purge tasks...` | 推送成功 ① |
+| `url or dir is lack` | url 或 dir 缺失 ② |
+| `*** md5 validate failure...` | MD5 校验错误失败 ③ |
+| `url invalid ...` | 更新的 url 错误 ④ |
+| `can't purge channel[... ]` | 推送的 url 错误 ⑤ |
 
 Tips:<br>
 ① 推送生效一般需要 2 - 4 分钟左右，请耐心等待。<br>
