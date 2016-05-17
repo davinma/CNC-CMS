@@ -5,18 +5,18 @@ ChinaNetCenter content manage system，即网宿科技内容管理系统，主�
 ### How to
 
 1. **推送 url 有什么规则？**<br>
-每个 url 一行，以协议://开头，如（http://或者mms://）开头。 <br>
+每个 url 一行，以协议://开头，如（`http://` 或者 `mms://`）开头。 <br>
 例如： <br>
-http://www.example.com/index.html <br>
+`http://www.example.com/index.html`<br>
 推送的 url 需要区分大小写。<br>
 可以一次推送多个 url，每个 url 以回车分割，每日可推送的 url 数目为 5,000。
 
 2. **推送 dir 有什么规则？**<br>
 要更新的目录名，必须以 dir= 开头，如果要刷新多个目录，请以分号(;)隔开，目录名要给全名。 <br>
 例如： <br>
-www.example.com/imgs/ <br>
-表示更新 www.example.com 域名的 imgs 目录下所有文件。 <br>
-请注意：目录开头不带 http://，每日可推送的 dir 数目为 500。
+`www.example.com/imgs/`<br>
+表示更新 `www.example.com` 域名的 `imgs` 目录下所有文件。 <br>
+请注意：目录开头不带 `http://`，每日可推送的 dir 数目为 500。
 
 3. **推送内容包含空格怎么办？**<br>
 由于空格是不符合 HTTP 协议的字符，所以需要对空格进行转义处理。具体做法是将推送内容中的 （空格）替换成%20。
