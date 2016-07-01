@@ -48,7 +48,7 @@ to do
 | `running url or dir[...], please ...` | 重复的提交操作 ⑥ |
 | `missing url or dir.` | 推送内容为空 ⑦ |
 
-Tips:<br>
+**Tips**:<br>
 ① 推送生效一般需要 2 - 4 分钟左右，请耐心等待。<br>
 ② url 或 dir 填写不完整，两者至少需要填写一项。<br>
 ③ 请确认 MD5 的校验内容是否按顺序进行组合，或者密码是否正确。<br>
