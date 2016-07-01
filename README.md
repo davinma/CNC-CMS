@@ -45,6 +45,8 @@ to do
 | `*** md5 validate failure...` | MD5 校验错误失败 ③ |
 | `url invalid ...` | 更新的 url 错误 ④ |
 | `can't purge channel[... ]` | 推送的 url 错误 ⑤ |
+| `running url or dir[...], please ...` | 重复的提交操作 ⑤ |
+| `missing url or dir.` | 推送内容为空 ⑤ |
 
 Tips:<br>
 ① 推送生效一般需要 2 - 4 分钟左右，请耐心等待。<br>
@@ -52,6 +54,8 @@ Tips:<br>
 ③ 请确认 MD5 的校验内容是否按顺序进行组合，或者密码是否正确。<br>
 ④ 可能提交了不属于该用户名的 url，请确认所推送的 url 是否正确。<br>
 ⑤ 省略号表示具体的域名，多个域名用逗号分隔，这表明可能提交了不属于当前用户名下的域名 url，请确认推送的 url 是否正确。
+⑥ 提交的内容产生重复，请在一分钟后再试。
+⑦ 推送内容为空。
 
 ### Update
 
@@ -78,7 +82,3 @@ Tips:<br>
 **2015-05-05**<br>
 新增了使用说明，更新记录和关于部分，方便新手入门；<br>
 省去/禁用用户名和密码输入部分，节省推送时间。
-
-### License
-
-Under the [MIT License](http://opensource.org/licenses/mit-license.php).
