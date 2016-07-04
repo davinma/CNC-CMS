@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta charset="utf-8">
+  <meta name="renderer" content="webkit" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <title>CNC 推送系统</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="http://fonts.useso.com/css?family=Open+Sans:400,700&subset=latin,latin-ext">
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/switchery.css">
+</head>
+
+<body>
+  <!--[if lt IE 10]>
+  <p class="oldie">您当前的浏览器<strong>已经快老掉牙</strong>了，为了不影响推送系统的使用，请 <b><a href="http://browsehappy.com/">升级您的浏览器</a></b> 以改善体验。</p>
+  <![endif]-->
+  <section class="page-header">
+    <h1 class="project-name">CNC 推送系统</h1>
+    <h2 class="project-tagline">一个简单的内容推送系统，基于 CNC（ChinaNetCenter，网宿科技）内容管理 API 实现，主要用于推送 URL 和 DIR。<strong>此页面不记录和保存任何隐私内容。</strong></h2>
+    <a href="#usage" class="btn">如何使用</a>
+    <a href="#about" class="btn">关于</a>
+  </section>
+  <section class="main-content">
+    <table class="form-box" cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td align="right">
+            <label for="username">用户名：</label>
+          </td>
+          <td>
+            <input id="username" class="form-control" type="text" value="" />
+          </td>
+        </tr>
+        <tr>
+          <td align="right">
+            <label for="password">推送密码：</label>
+          </td>
+          <td>
+            <input id="password" class="form-control" type="password" value="" />
+          </td>
+        </tr>
+        <tr>
+          <td align="right" valign="top">
+            <label for="urls">URL：</label>
+          </td>
+          <td>
+            <textarea rows="1" data-urls id="urls" class="form-control" placeholder="多个 URL 以回车换行"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td align="right"><a class="prefetch" href="#prefetch" title="什么是预取？">预取</a>：</td>
+          <td>
+            <label>
+              <input id="checkbox" type="checkbox" class="js-switch" />
+              <span> 向右滑动选择 [是]，默认选择 [否]。</span>
+              <span class="js-check-change-field"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td align="right" valign="top">
+            <label for="dirs">DIR：</label>
+          </td>
+          <td>
+            <textarea rows="1" data-dirs id="dirs" class="form-control" placeholder="多个 DIR 以回车换行"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">
+            <label for="delay">延迟：</label>
+          </td>
+          <td>
+            <input data-delay id="delay" class="form-control delay" placeholder="0"> <span>分钟</span></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><a class="push" id="push" href="javascript:;">开始推送</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <h2>推送结果</h2>
+    <iframe id="result-box" frameborder="0" scrolling="no" width="100%" src="" allowtransparency="true"></iframe>
+    <h2>推送结果说明</h2>
+    <table class="list" cellspacing="0" cellpadding="0">
+      <thead>
+        <tr>
+          <th>返回结果</th>
+          <th>说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>success append purge tasks...</code></td>
+          <td>内容推送成功 <sup>1</sup></td>
+        </tr>
+        <tr>
+          <td><code>url or dir is lack</code></td>
+          <td>推送的 url 或 dir 缺失 <sup>2</sup></td>
+        </tr>
+        <tr>
+          <td><code>*** md5 validate failure...</code></td>
+          <td>md5 校验错误失败 <sup>3</sup></td>
+        </tr>
+        <tr>
+          <td><code>url invalid ...</code></td>
+          <td>更新的 url 错误 <sup>4</sup></td>
+        </tr>
+        <tr>
+          <td><code>error channel[...]</code></td>
+          <td>推送的 url 错误 <sup>5</sup></td>
+        </tr>
+        <tr>
+          <td><code>running url or dir[...], please ...</code></td>
+          <td>重复的提交操作 <sup>6</sup></td>
+        </tr>
+        <tr>
+          <td><code>missing url or dir.</code></td>
+          <td>推送内容为空 <sup>7</sup></td>
+        </tr>
+      </tbody>
+    </table>
+    <ol class="task-list">
+      <li>推送生效一般需要 2 - 4 分钟左右，请耐心等待。</li>
+      <li>url 或 dir 填写不完整，两者至少需要填写一项。</li>
+      <li>请确认 md5 的校验内容是否按顺序进行组合，或者密码是否正确。</li>
+      <li>可能提交了不属于该用户名的 url，请确认所推送的 url 是否正确。</li>
+      <li>省略号表示具体的域名，多个域名用逗号分隔，这表明可能提交了不属于当前用户名下的域名 url，请确认推送的 url 是否正确。</li>
+      <li>提交的内容产生重复，请在一分钟后再试。</li>
+      <li>推送内容为空。</li>
+    </ol>
+    <h2 id="usage">如何使用</h2>
+    <dl>
+      <dt>1. 推送 url 有什么规则？</dt>
+      <dd>每个 url 一行，以协议 <code>://</code> 开头，如（<code>http://</code> 或者 <code>mms://</code>）开头。
+        <br /> 例如：
+        <br /> http://www.example.com/index.html
+        <br /> 推送的 url 需要区分大小写。</dd>
+      <dd>可以一次推送多个 url，每个 url 以回车分割。</dd>
+    </dl>
+    <dl>
+      <dt>2. 推送 dir 有什么规则？</dt>
+      <dd>要更新的目录名，以协议 <code>：//</code> 开头，如果要刷新多个目录，可以分号(;)隔开，目录名要给全名。
+        <br /> 例如：
+        <br /> www.abc.com/imgs/
+        <br /> 表示更新 www.abc.com 域名的 imgs 目录下所有文件。
+        <br /> 请注意：目录开头可省略 <code>http://</code>，推送的目录需要区分大小写，若配置缓存host，目录刷新需推送缓存host域名才可生效，请慎重！</dd>
+    </dl>
+    <dl>
+      <dt>3. 推送内容包含空格怎么办？</dt>
+      <dd>由于空格是不符合 HTTP 协议的字符，所以需要对空格进行转义处理。具体做法是将推送内容中的 <code> </code>（空格）替换成 <code>%20</code>。更多符号转换可参见 <a href="#char-list">下方列表</a>。</dd>
+    </dl>
+    <dl>
+      <dt id="prefetch">4. 什么是预取？</dt>
+      <dd>1). 预取，CDN 节点在删除文件的同时回源获取新文件；</dd>
+      <dd>2). 非预取，CDN 节点在接到下一个访问请求时，回源更新数据并缓存文件；</dd>
+      <dd>3). 对于大文件，预取方式可能导致回源量突增，因此推荐使用非预取的方式。</dd>
+      <dd>预取功能目前仅针对于 url 资源。</dd>
+    </dl>
+    <dl>
+      <dt>5. 延迟推送功能怎么用？</dt>
+      <dd>延迟推送表示需要推迟多少时间后开始推送任务，时间单位为分钟。如果需要将 url / dir 延迟推送，请在上面的延迟输入框内输入非负整数，默认不延迟推送。</dd>
+    </dl>
+    <dl>
+      <dt>6. 推送密码生效的时间？</dt>
+      <dd>修改密码后的 10 分钟内，推送系统会自动同步。请在推送密码修改后 10 分钟再行启用新的推送密码进行 md5 计算。</dd>
+    </dl>
+    <h2 id="about">关于</h2>
+    <p>此页面是一个简单的内容推送系统，基于 ChinaNetCenter（网宿科技）内容管理 API 实现，主要用于推送 URL 和 DIR。填写要推送的内容后， 点击开始推送按钮，即可完成整个推送过程。相比之下，采用 API 接口比官方 Web 版的推送系统更加方便快捷。<strong>此页面不记录和保存任何隐私内容。</strong>有任何建议或意见，请提 issues。</p>
+    <h4>推送系统 md5 原理</h4>
+    <p>password 参数中的 32 位 md5 值由四个部分组成，按照顺序分别为：用户名、推送密码（非登录密码）、url 内容和 dir 内容。</p>
+    <h4>API 参考指南</h4>
+    <p>1. <a href="https://sipic.chinanetcenter.com/docs/%E7%BD%91%E5%AE%BF%E5%86%85%E5%AE%B9%E6%8E%A8%E9%80%81%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3%E8%AF%B4%E6%98%8E.pdf">内容推送接口文档说明 &#187;</a>
+      <br /> 2. <a href="https://sipic.chinanetcenter.com/docs/%E7%BD%91%E5%AE%BF%E6%96%87%E4%BB%B6%E9%A2%84%E5%8F%96%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3%E8%AF%B4%E6%98%8E.pdf">文件预取接口文档说明 &#187;</a></p>
+    <h4 id="char-list">常见 URL 特殊字符转义</h4>
+    <table class="list" cellspacing="0" cellpadding="0">
+      <thead>
+        <tr>
+          <th>转义前</th>
+          <th>转义后</th>
+          <th>转义前</th>
+          <th>转义后</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code> </code> 空格</td>
+          <td>%20</td>
+          <td><code>"</code> 双引号</td>
+          <td>%22</td>
+        </tr>
+        <tr>
+          <td><code>#</code> 井号</td>
+          <td>%23</td>
+          <td><code>%</code> 百分号</td>
+          <td>%25</td>
+        </tr>
+        <tr>
+          <td><code>&amp;</code> AND 符号</td>
+          <td>%26</td>
+          <td><code>(</code> 左小括号</td>
+          <td>%28</td>
+        </tr>
+        <tr>
+          <td><code>)</code> 右小括号</td>
+          <td>%29</td>
+          <td><code>+</code> 加号</td>
+          <td>%2B</td>
+        </tr>
+        <tr>
+          <td><code>,</code> 逗号</td>
+          <td>%2C</td>
+          <td><code>/</code> 斜线</td>
+          <td>%2F</td>
+        </tr>
+        <tr>
+          <td><code>:</code> 冒号</td>
+          <td>%3A</td>
+          <td><code>;</code> 分号</td>
+          <td>%3B</td>
+        </tr>
+        <tr>
+          <td><code>&#60;</code> 左尖括号</td>
+          <td>%3C</td>
+          <td><code>=</code> 等号</td>
+          <td>%3D</td>
+        </tr>
+        <tr>
+          <td><code>></code> 右尖括号</td>
+          <td>%3E</td>
+          <td><code>?</code> 问号</td>
+          <td>%3F</td>
+        </tr>
+        <tr>
+          <td><code>@</code> AT 符号</td>
+          <td>%40</td>
+          <td><code>\</code> 反斜杠</td>
+          <td>%5C</td>
+        </tr>
+        <tr>
+          <td><code>|</code> 竖线</td>
+          <td>%7C</td>
+          <td><code>$</code> 美元符号</td>
+          <td>%24</td>
+        </tr>
+      </tbody>
+    </table>
+    <footer class="site-footer">
+      <span class="site-footer-credits">Spirited by <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a>.</span>
+    </footer>
+  </section>
+  <script src="js/switchery.min.js"></script>
+  <script src="js/md5.js"></script>
+  <script src="js/autosize.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
