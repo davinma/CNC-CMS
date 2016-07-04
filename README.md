@@ -1,11 +1,8 @@
-### About
+# About
 
 ChinaNetCenter content manage system，即网宿科技内容管理系统，主要功能是推送 URLs 和 文件目录。
 
-### Official help docs
-to do
-
-### How to
+# Rules
 
 1. **推送 url 有什么规则？**<br>
 每个 url 一行，以协议://开头，如（`http://` 或者 `mms://`）开头。 <br>
@@ -36,7 +33,7 @@ to do
 6. **推送密码生效的时间？**<br>
 修改密码后的 10 分钟内，推送系统会自动同步。请在推送密码修改后 10 分钟再行启用新的推送密码进行 MD5 计算。
 
-### Status
+# Status
 
 | 返回结果 | 说明 |
 | :---------------- | :---------- |
@@ -57,7 +54,7 @@ to do
 ⑥ 提交的内容产生重复，请在一分钟后再试。<br>
 ⑦ 推送内容为空。
 
-### Update
+# Update
 
 **2015-06-03**<br>
 修改部分使用说明；<br>
