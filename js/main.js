@@ -47,7 +47,6 @@ elems.forEach(function(html) {
 
   pushs.onclick = function() {
     var datas = username.getAttribute("data-username") + password.getAttribute("data-password") + urls.getAttribute("data-urls").replace(/.*?:\/\//g, "").replace(/[\n]/g, ";") + dirs.getAttribute("data-dirs").replace(/.*?:\/\//g, "").replace(/[\n]/g, ";");
-    console.log(datas);
     var md5 = hex_md5(datas);
     var path = [
       "http://wscp.lxdns.com:8080/wsCP/servlet/contReceiver?username=",
