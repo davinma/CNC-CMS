@@ -30,7 +30,7 @@ elems.forEach(function(html) {
   var changeCheckbox = document.querySelector('.js-switch');
   changeField = document.querySelector('.js-check-change-field');
   changeCheckbox.onchange = function() {
-    if (changeCheckbox.checked == true) {
+    if (!!changeCheckbox.checked) {
        fetch = "Y";
     } else {
       fetch = "N";
